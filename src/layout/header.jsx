@@ -2,12 +2,12 @@
  * @Descripttion: 头部
  * @Author: Hades
  * @Date: 2020-12-10 22:49:50
- * @LastEditTime: 2020-12-10 23:18:06
+ * @LastEditTime: 2020-12-11 15:23:36
  */
 import React, { useState } from 'react';
-import { Layout, Badge } from 'antd'
+import { Layout, Badge, Dropdown, Menu, Avatar} from 'antd'
 import { connect } from 'react-redux'
-import { MenuUnfoldOutlined, MenuFoldOutlined, FullscreenExitOutlined, FullscreenOutlined, BellOutlined} from '@ant-design/icons'
+import { MenuUnfoldOutlined, MenuFoldOutlined, FullscreenExitOutlined, FullscreenOutlined, BellOutlined, UserOutlined} from '@ant-design/icons'
 
 import { changeCollapsed } from '../redux/action'
 
@@ -38,6 +38,16 @@ const Header = ({collapsed,dispatch}) =>{
         setFull(true);
         }
     }
+
+    const menu = (
+        <Menu>
+          <Menu.Item key="1">关于admin</Menu.Item>
+          <Menu.Item key="2">项目仓库</Menu.Item>
+          <Menu.Item key="3">返回首页</Menu.Item>
+          <Menu.Divider />
+          <Menu.Item key="4">退出登录</Menu.Item>
+        </Menu>
+      );
     return (
         <Layout.Header className="header">
             {
@@ -51,6 +61,12 @@ const Header = ({collapsed,dispatch}) =>{
                 <Badge dot>
                     <BellOutlined className="icon-btn" />
                 </Badge>
+                <Dropdown overlay={menu}>
+                    <div className="avatar" > 
+                        <Avatar size={36} icon={<UserOutlined />} />
+                        <span style={{ marginLeft: 10 }}>管理员</span>
+                    </div>
+                </Dropdown>
             </div>
         </Layout.Header>
     )
