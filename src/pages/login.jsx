@@ -2,14 +2,16 @@
  * @Descripttion: 登录页面
  * @Author: Hades
  * @Date: 2020-12-10 16:31:29
- * @LastEditTime: 2020-12-11 17:36:11
+ * @LastEditTime: 2020-12-12 23:23:06
  */
 
 import React from 'react';
 import { Form, Input, Button } from 'antd';
+import { connect } from 'react-redux'
 import { postLogin } from '../axios'
 import { deepMenus } from '../utils'
-const Login = () => {
+import { setUserMenus } from '../redux/action'
+const Login = ({dispatch}) => {
 
     const layout = {
         labelCol: { span: 6 },
@@ -18,7 +20,8 @@ const Login = () => {
 
       const onFinish = values => {
         postLogin(values).then( res =>{
-            console.log(deepMenus(res.menus))
+            dispatch(setUserMenus(deepMenus(res.menus)))
+            window.location.href='/#/index'
         })
       };
 
@@ -54,4 +57,4 @@ const Login = () => {
     </div>
 }
 
-export default Login;
+export default connect()(Login);
