@@ -2,7 +2,7 @@
  * @Descripttion: 菜单管理
  * @Author: Hades
  * @Date: 2020-12-13 09:51:34
- * @LastEditTime: 2020-12-13 18:52:09
+ * @LastEditTime: 2020-12-13 21:55:51
  */
 
 import React, { useState } from 'react';
@@ -29,10 +29,18 @@ const Menus = ({menus,menusTree, dispatch}) =>{
     const saveMenu = () =>{
         addMenusForm.validateFields().then( formValue =>{
             const mid = mainMenus ? formValue.m_id : '0'
-            postAddMenu({...formValue,mid}).then( res =>{           
+            let url = ''
+            menusTree.forEach(item =>{
+                if(item.id === mid){
+                    url = item.url+formValue.url
+                }else{
+                    url = formValue.url
+                }
+            })
+            postAddMenu({...formValue,mid,url}).then( res =>{           
                 message.success('添加成功')
                 setAddModalVisible(false)
-                menusTree.push({...formValue,m_id:mid,id:res.id})
+                menusTree.push({...formValue,m_id:mid,id:res.id,url})
                 dispatch(setUserMenus(menusTree)) 
             })
         })
