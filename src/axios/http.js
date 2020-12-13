@@ -2,7 +2,7 @@
  * @Descripttion: http请求的封装
  * @Author: Hades
  * @Date: 2020-12-11 16:45:51
- * @LastEditTime: 2020-12-11 17:03:40
+ * @LastEditTime: 2020-12-13 18:38:17
  */
 
 import axios from 'axios'
@@ -33,6 +33,7 @@ const Axios = (options) => {
                 }
             }
         }).catch(err => {
+            console.log(err)
             Modal.warn({
                 title: '提示',
                 content: err.message

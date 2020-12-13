@@ -2,7 +2,7 @@
  * @Descripttion: 请求路径
  * @Author: Hades
  * @Date: 2020-12-11 16:46:45
- * @LastEditTime: 2020-12-12 23:38:38
+ * @LastEditTime: 2020-12-13 18:42:21
  */
 
 let serverUrl = ''
@@ -20,6 +20,12 @@ if(process.env.NODE_ENV === 'development'){
 const Apis = {
     serverUrl,
     login: serverUrl + '/admin/login', //登录
+    addMenu: serverUrl + '/admin/menu/add',//添加菜单
+    updateMenu: serverUrl+'/admin/menu/update',//修改菜单
+    
+    delMenu: serverUrl+"/admin/menu/delMenu",
+    
+
 
 }
 

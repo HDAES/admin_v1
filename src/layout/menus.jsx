@@ -2,16 +2,14 @@
  * @Descripttion: 左边导航栏
  * @Author: Hades
  * @Date: 2020-12-10 21:35:06
- * @LastEditTime: 2020-12-12 23:47:59
+ * @LastEditTime: 2020-12-13 11:42:56
  */
 
 import React from 'react';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux'
 import { Layout, Menu } from 'antd'
-
-
-
+import { deepMenus} from '../utils'
 import { changeCollapsed } from '../redux/action'
 
  const menus = ({collapsed, dispatch,menus}) =>{
@@ -27,12 +25,12 @@ import { changeCollapsed } from '../redux/action'
         </Layout.Sider>
     )
  }
- const mapStateProps = state => ({ collapsed: state.collapsed,menus:state.userMenus})
+ const mapStateProps = state => ({ collapsed: state.collapsed,menus: deepMenus(state.userMenus)})
  export default connect(mapStateProps)(menus);
 
  const renderMenu = (routerConfig) =>{
     return routerConfig.map( item => {
-        if(item.children){
+        if(item.children.length>0){
             return (
                 <Menu.SubMenu title={<span>{item.name} </span>} key={item.name} >
                     {renderMenu(item.children)}
