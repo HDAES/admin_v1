@@ -2,7 +2,7 @@
  * @Descripttion: 请求方法
  * @Author: Hades
  * @Date: 2020-12-11 16:48:13
- * @LastEditTime: 2020-12-13 18:43:31
+ * @LastEditTime: 2020-12-15 22:59:20
  */
 
 import http from './http'
@@ -36,6 +36,31 @@ export function getRemoveMenu(id) {
     return http({
         method:'get',
         url:api.delMenu+`/${id}`,
+        all:true,
+    })
+}
+
+//获取用户组
+export function getUserGroup(){
+    return http({
+        method:'get',
+        url:api.usergroup
+    })
+}
+
+export function postAddGroup(data){
+    return http({
+        method:'post',
+        url:api.addGroup,
+        data,
+        all:true,
+    })
+}
+
+export function getDelGroup(id){
+    return http({
+        method:'get',
+        url:api.delGroup+`/${id}`,
         all:true,
     })
 }
