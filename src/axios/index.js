@@ -2,7 +2,7 @@
  * @Descripttion: 请求方法
  * @Author: Hades
  * @Date: 2020-12-11 16:48:13
- * @LastEditTime: 2020-12-16 11:02:55
+ * @LastEditTime: 2020-12-16 11:34:23
  */
 
 import http from './http'
@@ -71,5 +71,12 @@ export function postUpdateGroup(data){
         url:api.updateGroup,
         data,
         all:true,
+    })
+}
+
+export function getUserList(){
+    return http({
+        method:'get',
+        url:api.userList
     })
 }

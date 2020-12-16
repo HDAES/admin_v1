@@ -2,7 +2,7 @@
  * @Descripttion: 请求路径
  * @Author: Hades
  * @Date: 2020-12-11 16:46:45
- * @LastEditTime: 2020-12-16 11:02:36
+ * @LastEditTime: 2020-12-16 11:33:38
  */
 
 let serverUrl = ''
@@ -29,6 +29,7 @@ const Apis = {
     addGroup: serverUrl+'/admin/usergroup/addGroup',//添加用户组
     delGroup: serverUrl+'/admin/usergroup/delGroup',//删除用户组
     updateGroup: serverUrl+'/admin/usergroup/updateGroup',//修改用户组
+    userList: serverUrl+'/admin/user/getUserList',//获取用户
 }
 
 export default Apis;
