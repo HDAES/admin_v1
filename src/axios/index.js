@@ -2,7 +2,7 @@
  * @Descripttion: 请求方法
  * @Author: Hades
  * @Date: 2020-12-11 16:48:13
- * @LastEditTime: 2020-12-15 22:59:20
+ * @LastEditTime: 2020-12-16 11:02:55
  */
 
 import http from './http'
@@ -61,6 +61,15 @@ export function getDelGroup(id){
     return http({
         method:'get',
         url:api.delGroup+`/${id}`,
+        all:true,
+    })
+}
+
+export function postUpdateGroup(data){
+    return http({
+        method:'post',
+        url:api.updateGroup,
+        data,
         all:true,
     })
 }
