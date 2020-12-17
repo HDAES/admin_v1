@@ -2,7 +2,7 @@
  * @Descripttion: 路由文件
  * @Author: Hades
  * @Date: 2020-12-10 16:27:33
- * @LastEditTime: 2020-12-17 16:10:25
+ * @LastEditTime: 2020-12-17 16:42:15
  */
 
 import React from 'react';
@@ -12,6 +12,10 @@ import Login from './pages/login'
 import RouterConfig from './router_config'
 import { userMenusUrl} from './utils'
 const router = ({menus,user}) =>{
+
+    if(user.menus ===''){
+        window.location.href='/#/login'
+    }
 
     return (
         <Router>
