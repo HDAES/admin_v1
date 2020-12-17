@@ -2,7 +2,7 @@
  * @Descripttion: 用户组
  * @Author: Hades
  * @Date: 2020-12-13 21:43:11
- * @LastEditTime: 2020-12-16 11:12:04
+ * @LastEditTime: 2020-12-17 14:14:17
  */
 
 import React,{ useEffect, useState} from 'react';
@@ -74,8 +74,8 @@ const Group = ({allMenus}) =>{
     }
     const columns = [{
         title: '名字',
-        dataIndex: 'name',
-        key: 'name',
+        dataIndex: 'gname',
+        key: 'gname',
     },{
         title: '菜单',
         dataIndex: 'menus',
@@ -142,7 +142,7 @@ const Group = ({allMenus}) =>{
                     <Form.Item  label="用户id" name="id">
                         <Input  disabled/>
                     </Form.Item>
-                    <Form.Item label="用户组名" name="name">
+                    <Form.Item label="用户组名" name="gname">
                         <Input placeholder="请输入用户组名"/>
                     </Form.Item>
                     <Form.Item label="菜单" name="menus">

@@ -2,7 +2,7 @@
  * @Descripttion: 请求方法
  * @Author: Hades
  * @Date: 2020-12-11 16:48:13
- * @LastEditTime: 2020-12-16 11:34:23
+ * @LastEditTime: 2020-12-17 14:22:38
  */
 
 import http from './http'
@@ -78,5 +78,13 @@ export function getUserList(){
     return http({
         method:'get',
         url:api.userList
+    })
+}
+
+export function getDelectUser(id){
+    return http({
+        method:'get',
+        url:api.delectUser+`/${id}`,
+        all:true,
     })
 }

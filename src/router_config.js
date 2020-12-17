@@ -2,7 +2,7 @@
  * @Descripttion: 完整路由文件
  * @Author: Hades
  * @Date: 2020-12-11 15:25:56
- * @LastEditTime: 2020-12-16 11:28:05
+ * @LastEditTime: 2020-12-17 15:48:35
  */
 import Layout from './layout'
 import Index from './pages/index'

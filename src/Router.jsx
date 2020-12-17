@@ -2,45 +2,48 @@
  * @Descripttion: 路由文件
  * @Author: Hades
  * @Date: 2020-12-10 16:27:33
- * @LastEditTime: 2020-12-11 16:43:10
+ * @LastEditTime: 2020-12-17 16:10:25
  */
 
 import React from 'react';
 import {HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
+import { connect } from 'react-redux'
 import Login from './pages/login'
 import RouterConfig from './router_config'
-
-const router = () =>{
-
-    console.log()
+import { userMenusUrl} from './utils'
+const router = ({menus,user}) =>{
 
     return (
         <Router>
             <Switch>
                 <Route path='/login' component={Login}/>
                 {
-                    RouteWithSubRoutes(RouterConfig)
+                    RouteWithSubRoutes(userMenusUrl(menus,user),RouterConfig)
+                    
                 }
             </Switch>
         </Router>
     )
 }
 
-export default router;
+const mapStateProps = state => ({menus:state.userMenus,user:state.user})
 
-const RouteWithSubRoutes = routerConfig =>{
+export default connect(mapStateProps)(router);
+
+const RouteWithSubRoutes = (menusUrl,routerConfig) =>{
     return  routerConfig.map( (item, index) =>{
-        if(item.children){
+        if(item.children ){
             return <Route path={item.path} key={index} render={ () =>{
                 if(item.component!=null){
                     return <item.component>
-                        { RouteWithSubRoutes(item.children)} 
+                        { RouteWithSubRoutes(menusUrl,item.children)} 
                     </item.component>
                 }   
             }}/>
         }else{
-            return item.auth?<Route  {...item} key={index}/>
+            return menusUrl.indexOf(item.path)>-1?<Route  {...item} key={index}/>
             : <Route path={item.path}  render={ () => <Redirect to="/login"/>} key={index}/>
         }
     })
 }
+

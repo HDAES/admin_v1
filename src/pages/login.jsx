@@ -2,14 +2,14 @@
  * @Descripttion: 登录页面
  * @Author: Hades
  * @Date: 2020-12-10 16:31:29
- * @LastEditTime: 2020-12-13 11:38:30
+ * @LastEditTime: 2020-12-17 15:21:10
  */
 
 import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { connect } from 'react-redux'
 import { postLogin } from '../axios'
-import { setUserMenus } from '../redux/action'
+import { setUserMenus,setGroup, setUser } from '../redux/action'
 const Login = ({dispatch}) => {
 
     const layout = {
@@ -20,6 +20,9 @@ const Login = ({dispatch}) => {
       const onFinish = values => {
         postLogin(values).then( res =>{
             dispatch(setUserMenus(res.menus))
+            dispatch(setGroup(res.groups))
+            dispatch(setUser(res.user))
+            
             window.location.href='/#/index'
         })
       };

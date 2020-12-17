@@ -2,7 +2,7 @@
  * @Descripttion: 公共方法
  * @Author: Hades
  * @Date: 2020-12-11 17:21:00
- * @LastEditTime: 2020-12-16 10:51:10
+ * @LastEditTime: 2020-12-17 16:17:14
  */
 
 // 递归菜单
@@ -25,3 +25,16 @@ export function deepMenus(menus,id = '0'){
 
     return tempMenus
 }
+
+export function userMenusUrl(menus,user){
+    const arrMenus = user.menus.split(',')
+    let menusUrl =[]
+    menus.forEach( item =>{
+        if(arrMenus.indexOf(item.id)>-1){
+            menusUrl.push(item.url)
+        }
+    })
+    return menusUrl
+}
+
+
