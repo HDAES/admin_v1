@@ -2,7 +2,7 @@
  * @Descripttion: 登录页面
  * @Author: Hades
  * @Date: 2020-12-10 16:31:29
- * @LastEditTime: 2020-12-17 15:21:10
+ * @LastEditTime: 2020-12-17 22:33:27
  */
 
 import React from 'react';
@@ -10,6 +10,7 @@ import { Form, Input, Button } from 'antd';
 import { connect } from 'react-redux'
 import { postLogin } from '../axios'
 import { setUserMenus,setGroup, setUser } from '../redux/action'
+import { HmacSHA1 } from '../utils'
 const Login = ({dispatch}) => {
 
     const layout = {
@@ -18,7 +19,7 @@ const Login = ({dispatch}) => {
       };
 
       const onFinish = values => {
-        postLogin(values).then( res =>{
+        postLogin({...values,passWord:HmacSHA1(values.passWord)}).then( res =>{
             dispatch(setUserMenus(res.menus))
             dispatch(setGroup(res.groups))
             dispatch(setUser(res.user))

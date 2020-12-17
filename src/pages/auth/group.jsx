@@ -2,7 +2,7 @@
  * @Descripttion: 用户组
  * @Author: Hades
  * @Date: 2020-12-13 21:43:11
- * @LastEditTime: 2020-12-17 14:14:17
+ * @LastEditTime: 2020-12-17 22:49:51
  */
 
 import React,{ useEffect, useState} from 'react';
@@ -38,7 +38,7 @@ const Group = ({allMenus}) =>{
     //添加用户组
     const saveGroup = () =>{
         edit?groupForm.validateFields().then( res =>{
-            postAddGroup({name:res.name,menus:checkedKeys}).then( res =>{
+            postAddGroup({name:res.gname,menus:checkedKeys}).then( res =>{
                 if(res.code === 200){
                     message.success('添加成功!')
                     setRefresh(!refresh)
