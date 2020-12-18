@@ -2,7 +2,7 @@
  * @Descripttion: 菜单管理
  * @Author: Hades
  * @Date: 2020-12-13 09:51:34
- * @LastEditTime: 2020-12-13 21:55:51
+ * @LastEditTime: 2020-12-18 13:55:54
  */
 
 import React, { useState } from 'react';
@@ -29,12 +29,10 @@ const Menus = ({menus,menusTree, dispatch}) =>{
     const saveMenu = () =>{
         addMenusForm.validateFields().then( formValue =>{
             const mid = mainMenus ? formValue.m_id : '0'
-            let url = ''
+            let url = formValue.url
             menusTree.forEach(item =>{
                 if(item.id === mid){
-                    url = item.url+formValue.url
-                }else{
-                    url = formValue.url
+                    url = item.url+'/'+formValue.url
                 }
             })
             postAddMenu({...formValue,mid,url}).then( res =>{           

@@ -2,7 +2,7 @@
  * @Descripttion: 用户组
  * @Author: Hades
  * @Date: 2020-12-16 11:20:36
- * @LastEditTime: 2020-12-17 22:50:09
+ * @LastEditTime: 2020-12-18 10:16:58
  */
 
 
@@ -10,12 +10,13 @@ import React,{ useEffect, useState} from 'react';
 import { Card, Table, Button, message, Modal, Form, Input, Select } from 'antd';
 import { PlusOutlined} from '@ant-design/icons';
 import { connect } from "react-redux"
-import { getUserList, getDelectUser, postAddUser } from '../../axios'
+import { getUserList, getDelectUser, postAddUser, postUpdateUser } from '../../axios'
 import { HmacSHA1 } from '../../utils' 
 const User = ({groups}) =>{
 
     const [userList, setUserList] = useState()
     const [refresh, setRefresh] = useState(false)
+    const [isEdit, setIsEdit] = useState(false)
     const [visible, setVisible] = useState(false)
 
     const [userForm] = Form.useForm()
@@ -41,14 +42,37 @@ const User = ({groups}) =>{
     //弹窗点击事件
     const okHandle = () =>{
         userForm.validateFields().then( res =>{
-            postAddUser({...res,passWord:HmacSHA1(res.passWord)}).then( res =>{
-                if(res.code === 200){
-                    setVisible(false)
-                    message.success('添加成功!')
-                    setRefresh(!refresh)
-                }
-            })
+            if(isEdit){
+                postAddUser({...res,passWord:HmacSHA1(res.passWord)}).then( res =>{
+                    if(res.code === 200){
+                        setVisible(false)
+                        message.success('添加成功!')
+                        setRefresh(!refresh)
+                    }
+                })
+            }else{
+                postUpdateUser({...res,passWord:HmacSHA1(res.passWord)}).then( res =>{
+                    if(res.code === 200){
+                        setVisible(false)
+                        message.success('修改成功!')
+                        setRefresh(!refresh)
+                    }
+                })
+            }
+            
         })
+    }
+    //添加用户按钮点击事件
+    const addHandle = () =>{
+        setVisible(true)
+        setIsEdit(true)
+        userForm.resetFields()
+    }
+    //编辑按钮点击事件
+    const editHandle = item =>{
+        setIsEdit(false)
+        setVisible(true)
+        userForm.setFieldsValue(item)
     }
     const columns = [{  
         title: '昵称',
@@ -76,9 +100,9 @@ const User = ({groups}) =>{
         fixed: 'right',
         align:'center',
         width: 250,
-        render: (e) => <div style={{display:'flex'}}>
-            <Button type="link" onClick={()=>{}} >修改</Button>
-            <Button type="link" onClick={()=>delUser(e)} danger>删除</Button>
+        render: _ => <div style={{display:'flex'}}>
+            <Button type="link" onClick={()=>editHandle(_)} >修改</Button>
+            <Button type="link" onClick={()=>delUser(_)} danger>删除</Button>
         </div>
     }]
     const layout = {
@@ -88,7 +112,7 @@ const User = ({groups}) =>{
     return (
         <div>
             <Card style={{marginBottom:10}}>
-            <Button icon={<PlusOutlined />} onClick={()=>{setVisible(true)}}>添加用户</Button>
+                <Button icon={<PlusOutlined />} onClick={()=>addHandle()}>添加用户</Button>
             </Card>
             <Card>
                 <Table 
@@ -104,6 +128,9 @@ const User = ({groups}) =>{
                 onCancel={()=>setVisible(false)}
                 >
                     <Form form={userForm} {...layout}>
+                        <Form.Item label="ID" name="id">
+                            <Input placeholder="默认自动生成" disabled/>
+                        </Form.Item>
                         <Form.Item label="昵称" name="name">
                             <Input placeholder="请输入账号"/>
                         </Form.Item>
@@ -117,7 +144,7 @@ const User = ({groups}) =>{
                             <Select >
                                 {
                                     groups.map( item =>{
-                                        return <Select.Option value={item.gid} key={item.gid}>{item.gname}</Select.Option>
+                                        return <Select.Option value={item.id} key={item.gname}>{item.gname}</Select.Option>
                                     })
                                 }
                             </Select>

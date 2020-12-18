@@ -2,7 +2,7 @@
  * @Descripttion: 请求方法
  * @Author: Hades
  * @Date: 2020-12-11 16:48:13
- * @LastEditTime: 2020-12-17 22:25:18
+ * @LastEditTime: 2020-12-18 10:15:39
  */
 
 import http from './http'
@@ -98,3 +98,12 @@ export function postAddUser(data){
     })
 }
 
+
+export function postUpdateUser(data){
+    return http({
+        method:'post',
+        url:api.updateUser,
+        data,
+        all:true,
+    })
+}
