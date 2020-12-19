@@ -2,7 +2,7 @@
  * @Descripttion: 完整路由文件
  * @Author: Hades
  * @Date: 2020-12-11 15:25:56
- * @LastEditTime: 2020-12-19 11:43:10
+ * @LastEditTime: 2020-12-19 17:15:15
  */
 import Layout from './layout'
 import Index from './pages/index'
@@ -14,6 +14,8 @@ import Modal from './pages/ui/modal'
 import MyDrawer from './pages/ui/drawer'
 import Loading from './pages/ui/loading'
 import Note from './pages/ui/note'
+import MyTabs from './pages/ui/tabs'
+import Emoji from './pages/ui/emoji'
 const Routes = [
     {
         path:'/', name:'Layout', component:Layout, auth:true, children:[
@@ -23,6 +25,8 @@ const Routes = [
             {path:'/ui/drawer', name:'MyDrawer', component:MyDrawer, auth:true},
             {path:'/ui/loading', name:'Loading', component:Loading, auth:true},
             {path:'/ui/note', name:'Note', component:Note, auth:true},
+            {path:'/ui/tabs', name:'MyTabs', component:MyTabs, auth:true},
+            {path:'/ui/emoji', name:'Emoji', component:Emoji, auth:true},
             {path:'/auth/menus', name:'Menus', component:Menus, auth:true},
             {path:'/auth/group', name:'Group', component:Group, auth:true},
             {path:'/auth/user', name:'User', component:User, auth:true},
