@@ -2,7 +2,7 @@
  * @Descripttion: 条形图
  * @Author: Hades
  * @Date: 2020-12-19 23:41:42
- * @LastEditTime: 2020-12-19 23:52:11
+ * @LastEditTime: 2020-12-19 23:57:54
  */
 import React, { useEffect, useState} from 'react';
 import { Bar } from '@ant-design/charts';
