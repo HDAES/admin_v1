@@ -2,7 +2,7 @@
  * @Descripttion: 完整路由文件
  * @Author: Hades
  * @Date: 2020-12-11 15:25:56
- * @LastEditTime: 2020-12-19 22:58:49
+ * @LastEditTime: 2020-12-19 23:45:48
  */
 import Layout from './layout'
 import Index from './pages/index'
@@ -17,6 +17,7 @@ import Note from './pages/ui/note'
 import MyTabs from './pages/ui/tabs'
 import Emoji from './pages/ui/emoji'
 import G2Line from './pages/chart/line'
+import G2Bar from './pages/chart/bar'
 const Routes = [
     {
         path:'/', name:'Layout', component:Layout, auth:true, children:[
@@ -32,6 +33,8 @@ const Routes = [
             {path:'/auth/group', name:'Group', component:Group, auth:true},
             {path:'/auth/user', name:'User', component:User, auth:true},
             {path:'/chart/line', name:'G2Line', component:G2Line, auth:true},
+            {path:'/chart/bar', name:'G2Bar', component:G2Bar, auth:true},
+            
 
         ]
     }
