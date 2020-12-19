@@ -2,7 +2,7 @@
  * @Descripttion: 完整路由文件
  * @Author: Hades
  * @Date: 2020-12-11 15:25:56
- * @LastEditTime: 2020-12-20 00:06:47
+ * @LastEditTime: 2020-12-20 00:31:45
  */
 import Layout from './layout'
 import Index from './pages/index'
@@ -19,6 +19,7 @@ import Emoji from './pages/ui/emoji'
 import G2Line from './pages/chart/line'
 import G2Bar from './pages/chart/bar'
 import G2Pie from './pages/chart/pie'
+import G2Liquid from './pages/chart/liquid'
 const Routes = [
     {
         path:'/', name:'Layout', component:Layout, auth:true, children:[
@@ -36,6 +37,7 @@ const Routes = [
             {path:'/chart/line', name:'G2Line', component:G2Line, auth:true},
             {path:'/chart/bar', name:'G2Bar', component:G2Bar, auth:true},
             {path:'/chart/pie', name:'G2Pie', component:G2Pie, auth:true},
+            {path:'/chart/liquid', name:'G2Liquid', component:G2Liquid, auth:true},
             
         ]
     }
