@@ -2,7 +2,7 @@
  * @Descripttion: 用户组
  * @Author: Hades
  * @Date: 2020-12-13 21:43:11
- * @LastEditTime: 2020-12-17 22:49:51
+ * @LastEditTime: 2020-12-20 23:52:14
  */
 
 import React,{ useEffect, useState} from 'react';
@@ -149,8 +149,9 @@ const Group = ({allMenus}) =>{
                         <Tree 
                             checkable
                             defaultExpandAll 
+                            checkStrictly={true}
                             checkedKeys={checkedKeys}
-                            onCheck={(checkedKeys)=>setCheckedKeys(checkedKeys)}
+                            onCheck={({checked})=>setCheckedKeys(checked)}
                             treeData={allMenus}/>
                     </Form.Item>
                 </Form>
