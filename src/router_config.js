@@ -2,7 +2,7 @@
  * @Descripttion: 完整路由文件
  * @Author: Hades
  * @Date: 2020-12-11 15:25:56
- * @LastEditTime: 2020-12-20 22:23:09
+ * @LastEditTime: 2020-12-20 22:49:16
  */
 import Layout from './layout'
 import Index from './pages/index'
@@ -21,6 +21,7 @@ import G2Bar from './pages/chart/bar'
 import G2Pie from './pages/chart/pie'
 import G2Liquid from './pages/chart/liquid'
 import G2Word from './pages/chart/word'
+import BraftEditor from './pages/edit/braft-editor'
 const Routes = [
     {
         path:'/', name:'Layout', component:Layout, auth:true, children:[
@@ -40,7 +41,8 @@ const Routes = [
             {path:'/chart/pie', name:'G2Pie', component:G2Pie, auth:true},
             {path:'/chart/liquid', name:'G2Liquid', component:G2Liquid, auth:true},
             {path:'/chart/word', name:'G2Word', component:G2Word, auth:true},
-            
+            {path:'/editor/braft', name:'BraftEditor', component:BraftEditor, auth:true},
+               
         ]
     }
 ]
