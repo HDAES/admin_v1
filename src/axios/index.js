@@ -2,7 +2,7 @@
  * @Descripttion: 请求方法
  * @Author: Hades
  * @Date: 2020-12-11 16:48:13
- * @LastEditTime: 2021-01-05 14:25:59
+ * @LastEditTime: 2021-01-05 17:55:21
  */
 
 import http from './http'
@@ -140,4 +140,32 @@ export function postUpdateSort(data){
         all:true
     })
 }
-
+export function postAddTags(data){
+    return http({
+        method:'post',
+        url:api.addTags,
+        data,
+        all:true
+    })
+}
+export function getTags(){
+    return http({
+        method:'get',
+        url:api.tags,
+    })
+}
+export function PostUpdateTags(data){
+    return http({
+        method:'post',
+        url:api.updateTags,
+        data,
+        all:true
+    })
+}
+export function getDelTags(id){
+    return http({
+        method:'get',
+        url:api.delTags+`/${id}`,
+        all:true
+    })
+}
