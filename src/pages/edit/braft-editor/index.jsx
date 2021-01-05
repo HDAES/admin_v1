@@ -2,7 +2,7 @@
  * @Descripttion: braft-editor编辑器
  * @Author: Hades
  * @Date: 2020-12-20 22:47:51
- * @LastEditTime: 2021-01-04 16:42:28
+ * @LastEditTime: 2021-01-05 10:25:14
  */
 
 import React, { useState } from 'react';
@@ -34,7 +34,7 @@ const MyBraftEditor = () =>{
       }
     ]
     const myUploadFn = (param) => {
-      const serverURL = Apis.serverUrl+'/upload/oss'
+      const serverURL = Apis.uploadOss
       const xhr = new XMLHttpRequest()
       const fd = new FormData()
 

@@ -2,7 +2,7 @@
  * @Descripttion: 请求方法
  * @Author: Hades
  * @Date: 2020-12-11 16:48:13
- * @LastEditTime: 2020-12-19 23:02:42
+ * @LastEditTime: 2021-01-05 14:25:59
  */
 
 import http from './http'
@@ -105,6 +105,39 @@ export function postUpdateUser(data){
         url:api.updateUser,
         data,
         all:true,
+    })
+}
+
+export function postAddSort(data){
+    return http({
+        method:'post',
+        url:api.addSort,
+        data,
+        all:true
+    })
+}
+
+export function getSort(){
+    return http({
+        method:'get',
+        url:api.getSort
+    })
+}
+
+export function getDelSort(id){
+    return http({
+        method:'get',
+        url:api.delSort+`/${id}`,
+        all:true
+    })
+}
+
+export function postUpdateSort(data){
+    return http({
+        method:'post',
+        url:api.updateSort,
+        data,
+        all:true
     })
 }
 

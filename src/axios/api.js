@@ -2,7 +2,7 @@
  * @Descripttion: 请求路径
  * @Author: Hades
  * @Date: 2020-12-11 16:46:45
- * @LastEditTime: 2021-01-04 16:02:47
+ * @LastEditTime: 2021-01-05 14:25:10
  */
 
 let serverUrl = ''
@@ -31,6 +31,12 @@ const Apis = {
     delectUser: serverUrl+'/admin/user/delectUser',//删除用户
     addUser:serverUrl+'/admin/user/addUser',//添加用户
     updateUser: serverUrl+'/admin/user/updateUser',//修改用户
+    addSort:serverUrl+'/admin/blog/sort/add',//添加分类
+    getSort: serverUrl+'/admin/blog/sort' ,//得到所有分类
+    delSort: serverUrl+ '/admin/blog/sort/del',//删除分类
+    updateSort: serverUrl+'/admin/blog/sort/update',//修改分类
+    
+    uploadOss:serverUrl+'/upload/oss',//上传图片
 }
 
 export default Apis;
