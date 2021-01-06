@@ -2,7 +2,7 @@
  * @Descripttion: 完整路由文件
  * @Author: Hades
  * @Date: 2020-12-11 15:25:56
- * @LastEditTime: 2021-01-05 15:32:12
+ * @LastEditTime: 2021-01-06 12:08:47
  */
 import Layout from './layout'
 import Index from './pages/index'
@@ -24,6 +24,8 @@ import G2Word from './pages/chart/word'
 import BraftEditor from './pages/edit/braft-editor'
 import Sort from './pages/blog/sort'
 import Tags from './pages/blog/tags'
+import Details from './pages/blog/details'
+
 const Routes = [
     {
         path:'/', name:'Layout', component:Layout, auth:true, children:[
@@ -46,6 +48,7 @@ const Routes = [
             {path:'/editor/braft', name:'BraftEditor', component:BraftEditor, auth:true},
             {path:'/blog/sort', name:'Sort', component:Sort, auth:true},
             {path:'/blog/tags', name:'Tags', component:Tags, auth:true}, 
+            {path:'/blog/details', name:'Details', component:Details, auth:true},
         ]
     }
 ]

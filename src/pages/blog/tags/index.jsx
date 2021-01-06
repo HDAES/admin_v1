@@ -2,7 +2,7 @@
  * @Descripttion: 标签管理
  * @Author: Hades
  * @Date: 2021-01-05 10:06:37
- * @LastEditTime: 2021-01-05 17:55:45
+ * @LastEditTime: 2021-01-06 13:49:47
  */
 
 import React,{ useState, useEffect} from 'react';
@@ -144,7 +144,7 @@ const Tags = () =>{
                            <Select>
                                {
                                     sortList.map(item =>{
-                                       return <Select.Option value={item.id}>{item.name}</Select.Option>
+                                       return <Select.Option key={item.id} value={item.id}>{item.name}</Select.Option>
                                    })
                                }
                            </Select>
