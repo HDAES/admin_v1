@@ -2,20 +2,29 @@
  * @Descripttion: 博客详情
  * @Author: Hades
  * @Date: 2021-01-06 12:04:57
- * @LastEditTime: 2021-01-06 13:54:55
+ * @LastEditTime: 2021-01-14 23:27:01
  */
 
 import React, { useState, useEffect} from 'react';
-import { Card, Button, Modal, Form, Select, Input, Upload, Switch,InputNumber } from 'antd'
+import { Card, Button, Modal, Form, Select, Input, Upload, Switch,InputNumber,message,Table } from 'antd'
 import { PlusOutlined, UploadOutlined } from '@ant-design/icons';
-import { getTags } from '../../../axios'
+import { getTags, postDetails,getDetails } from '../../../axios'
 import Apis from '../../../axios/api'
 const Details = () =>{
 
+    const [refresh,setRefresh] = useState(false)
     const [visible,setVisible] = useState(false)
     const [tagsList,setTagsList] = useState([{id:0}])
+    const [blogList,setBlogList] = useState([])
     const [fileList,setFileList] = useState([])
     const [editForm] = Form.useForm()
+
+    useEffect(()=>{
+        getDetails().then(res => {
+            setBlogList(res.data.list)
+        })
+    },[refresh])
+
     useEffect(()=>{
         getTags().then(res =>{
             setTagsList(res.list)
@@ -28,17 +37,77 @@ const Details = () =>{
     //保存按钮
     const okHandler = () =>{
         editForm.validateFields().then( value =>{
-            console.log(value)
+            let image =''
+            let sid =''
+            let source = value.source?1:0;
+            if(value.upload.length>0){
+                image = value.upload[0].response.data.url
+            }
+            tagsList.forEach(element => {
+                if(element.id===value.tid){
+                    sid =element.sid
+                }
+            });
+            postDetails({...value,sid,image,source}).then( res =>{
+                if(res.code === 200){
+                    message.success('添加成功')
+                    setVisible(false)
+                    setRefresh(!refresh)
+                }
+            })
         })
     }
    
     const normFile = (e) => {
-        console.log('Upload event:', e);
+        //console.log('Upload event:', e);
         if (Array.isArray(e)) {
           return e;
         }
         return e && e.fileList;
     }
+    const columns =[{
+        title: '分类',
+        dataIndex: 'name',
+        key: 'name',
+    },{
+        title: '标签',
+        dataIndex: 'tname',
+        key: 'tname',
+    },{
+        title: '标题',
+        dataIndex: 'title',
+        key: 'title',
+    },
+    {
+        title: '描述',
+        dataIndex: 'des',
+        key: 'des',
+    },{
+        title: '来源',
+        dataIndex: 'source',
+        key: 'source',
+        render:source=><div>{source===0?'原创':'转载'}</div>
+    },
+    {
+        title: '排序',
+        dataIndex: 'orderIn',
+        key: 'orderIn'
+    },
+    {
+        title: '类型',
+        dataIndex: 'type',
+        key: 'type'
+    },{
+        title: '图片',
+        dataIndex: 'image',
+        key: 'image',
+        render:image=><img src={image} alt='' width='80'/>
+    },{
+        title: '创建时间',
+        dataIndex: 'createTime',
+        key: 'createTime'
+    },
+    ]
     const layout = {
         labelCol: { span: 4},
         wrapperCol: { span: 20 },
@@ -48,6 +117,13 @@ const Details = () =>{
             <Card>
                 <Button onClick={addHandler}>添加<PlusOutlined /></Button>
             </Card>
+            <Card style={{marginTop:20}}>
+                <Table 
+                    rowKey={record => record.id}
+                    dataSource={blogList}
+                    columns={columns}
+                    />
+            </Card>
             <Modal 
                 title="编辑"
                 visible={visible}
@@ -56,7 +132,7 @@ const Details = () =>{
                 onCancel={()=>setVisible(false)}
                 >
                 <Form form={editForm} {...layout}>
-                    <Form.Item label="标签" name="t_id" initialValue={tagsList[0].id}>
+                    <Form.Item label="标签" name="tid" initialValue={tagsList[0].id}>
                         <Select>
                             {
                                 tagsList.map(item=>{
@@ -82,7 +158,7 @@ const Details = () =>{
                     <Form.Item label="类型" name="type" initialValue={0} rules={[{ required: true, message: 'Please input your type!' }]}>
                         <InputNumber min={0} max={2} step={1}/>
                     </Form.Item>
-                    <Form.Item label="排序" name="order" initialValue={0} rules={[{ required: true, message: 'Please input your type!' }]}>
+                    <Form.Item label="排序" name="order_in" initialValue={0} rules={[{ required: true, message: 'Please input your type!' }]}>
                         <InputNumber min={0} max={100} step={1}/>
                     </Form.Item>
                 </Form>

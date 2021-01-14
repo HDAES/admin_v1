@@ -2,7 +2,7 @@
  * @Descripttion: 请求路径
  * @Author: Hades
  * @Date: 2020-12-11 16:46:45
- * @LastEditTime: 2021-01-05 17:55:00
+ * @LastEditTime: 2021-01-14 22:10:20
  */
 
 let serverUrl = ''
@@ -40,6 +40,7 @@ const Apis = {
     updateTags: serverUrl+'/admin/blog/tags/update',//修改标签
     delTags: serverUrl+'/admin/blog/tags/del',//删除标签
     uploadOss:serverUrl+'/upload/oss',//上传图片
+    blogDetails: serverUrl+'/admin/blog/details'
 }
 
 export default Apis;

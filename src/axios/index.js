@@ -2,7 +2,7 @@
  * @Descripttion: 请求方法
  * @Author: Hades
  * @Date: 2020-12-11 16:48:13
- * @LastEditTime: 2021-01-05 17:55:21
+ * @LastEditTime: 2021-01-14 22:32:18
  */
 
 import http from './http'
@@ -169,3 +169,21 @@ export function getDelTags(id){
         all:true
     })
 }
+
+export function getDetails(){
+    return http({
+        method:'get',
+        url:api.blogDetails,
+        all:true
+    })
+}
+
+export function postDetails(data){
+    return http({
+        method:'post',
+        url:api.blogDetails,
+        data,
+        all:true
+    })
+}
+

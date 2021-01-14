@@ -2,7 +2,7 @@
  * @Descripttion: 标签管理
  * @Author: Hades
  * @Date: 2021-01-05 10:06:37
- * @LastEditTime: 2021-01-06 13:49:47
+ * @LastEditTime: 2021-01-14 22:01:19
  */
 
 import React,{ useState, useEffect} from 'react';
@@ -123,7 +123,7 @@ const Tags = () =>{
             </Card>
             <Card style={{marginTop:20}}>
                 <Table
-                    
+                    rowKey={record => record.id}
                     dataSource={tagsList}
                     columns={columns}
                     />
@@ -144,7 +144,7 @@ const Tags = () =>{
                            <Select>
                                {
                                     sortList.map(item =>{
-                                       return <Select.Option key={item.id} value={item.id}>{item.name}</Select.Option>
+                                       return <Select.Option key={item.id} value={item.id} >{item.name}</Select.Option>
                                    })
                                }
                            </Select>
