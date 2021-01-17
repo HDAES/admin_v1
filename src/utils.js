@@ -2,7 +2,7 @@
  * @Descripttion: 公共方法
  * @Author: Hades
  * @Date: 2020-12-11 17:21:00
- * @LastEditTime: 2021-01-05 13:56:50
+ * @LastEditTime: 2021-01-17 15:51:11
  */
 import CryptoJS from 'crypto-js'
 const SHA1 = "HADESXL"
@@ -43,4 +43,17 @@ export function HmacSHA1(password){
     return CryptoJS.HmacSHA1(password,SHA1).toString()
 }
 
+//类型格式化
+export function formateType(type){
+    switch(type){
+        case 0 :
+            return "pc和小程序"
+        case 1 : 
+            return "微信小程序"
+        case 2 :
+            return "pc"
+        default :
+            return "未知"
+    }
+}
 

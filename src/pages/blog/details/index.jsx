@@ -2,18 +2,20 @@
  * @Descripttion: 博客详情
  * @Author: Hades
  * @Date: 2021-01-06 12:04:57
- * @LastEditTime: 2021-01-14 23:27:01
+ * @LastEditTime: 2021-01-17 23:03:35
  */
 
 import React, { useState, useEffect} from 'react';
 import { Card, Button, Modal, Form, Select, Input, Upload, Switch,InputNumber,message,Table } from 'antd'
-import { PlusOutlined, UploadOutlined } from '@ant-design/icons';
-import { getTags, postDetails,getDetails } from '../../../axios'
+import { PlusOutlined, UploadOutlined,ExclamationCircleOutlined } from '@ant-design/icons';
+import { getTags, postDetails,getDetails,delDetails,putDetails } from '../../../axios'
 import Apis from '../../../axios/api'
+import { formateType } from '../../../utils'
 const Details = () =>{
 
     const [refresh,setRefresh] = useState(false)
     const [visible,setVisible] = useState(false)
+    const [isAdd,setIsAdd] = useState(false)
     const [tagsList,setTagsList] = useState([{id:0}])
     const [blogList,setBlogList] = useState([])
     const [fileList,setFileList] = useState([])
@@ -33,37 +35,88 @@ const Details = () =>{
     //添加按钮
     const addHandler = () =>{
         setVisible(true)
+        setIsAdd(true)
+        editForm.resetFields()
+        setFileList([])
     }
     //保存按钮
     const okHandler = () =>{
         editForm.validateFields().then( value =>{
-            let image =''
             let sid =''
             let source = value.source?1:0;
-            if(value.upload.length>0){
-                image = value.upload[0].response.data.url
-            }
             tagsList.forEach(element => {
                 if(element.id===value.tid){
                     sid =element.sid
                 }
             });
-            postDetails({...value,sid,image,source}).then( res =>{
-                if(res.code === 200){
-                    message.success('添加成功')
-                    setVisible(false)
-                    setRefresh(!refresh)
+            if(fileList.length===0){
+                message.error('请上传图片')
+            }else{
+                let image =fileList[0].url
+                if(isAdd){
+                    postDetails({...value,sid,image,source}).then( res =>{
+                        if(res.code === 200){
+                            message.success('添加成功')
+                            setVisible(false)
+                            setRefresh(!refresh)
+                        }
+                    })
+                }else{
+                    putDetails({...value,sid,image,source}).then(res=>{
+                        if(res.code === 200){
+                            message.success('修改成功')
+                            setVisible(false)
+                            setRefresh(!refresh)
+                        }
+                    })
                 }
-            })
+            }
+           
+            
         })
     }
-   
-    const normFile = (e) => {
-        //console.log('Upload event:', e);
-        if (Array.isArray(e)) {
-          return e;
+    //编辑按钮
+    const editHandler = (item) =>{
+        setIsAdd(false)
+        editForm.setFieldsValue(item)
+        setFileList([
+            {
+                status: 'done',
+                url: item.image,
+            }
+        ])
+        setVisible(true)
+    }
+    //删除按钮
+    const delHandler = id =>{
+        Modal.confirm({
+            title: 'Are you sure delete this sort?',
+            icon: <ExclamationCircleOutlined />,
+            okText: '删除',
+            okType: 'danger',
+            cancelText: '取消',
+            onOk() {
+                delDetails(id).then(res =>{
+                    if(res.code === 200){
+                        message.success('添加成功')
+                        setRefresh(!refresh)
+                    }
+                })
+            },
+            onCancel() {
+              console.log('Cancel');
+            },
+        })
+    }
+    const handleChange = (e) => {
+        console.log('Upload event:', e);
+        if(e.file.status==="done"&&e.file.response.code===200){
+            //上传成功
+            setFileList([{
+                status: 'done',
+                url: e.file.response.data.url,
+            }])
         }
-        return e && e.fileList;
     }
     const columns =[{
         title: '分类',
@@ -96,7 +149,8 @@ const Details = () =>{
     {
         title: '类型',
         dataIndex: 'type',
-        key: 'type'
+        key: 'type',
+        render:type =><div>{formateType(type)}</div>
     },{
         title: '图片',
         dataIndex: 'image',
@@ -107,7 +161,21 @@ const Details = () =>{
         dataIndex: 'createTime',
         key: 'createTime'
     },
-    ]
+    {
+        title: '操作',
+        key: 'operation',
+        fixed: 'right',
+        align:'center',
+        width: 250,
+        render: (e) => <div style={{display:'flex'}}>
+            <Button type="link" onClick={()=>editHandler(e)}>
+                修改
+            </Button>
+            <Button type="link" danger onClick={()=>delHandler(e.id)}>
+                删除
+            </Button>
+        </div>
+    }]
     const layout = {
         labelCol: { span: 4},
         wrapperCol: { span: 20 },
@@ -132,6 +200,11 @@ const Details = () =>{
                 onCancel={()=>setVisible(false)}
                 >
                 <Form form={editForm} {...layout}>
+                    {
+                        isAdd?null: <Form.Item label="id" name="id">
+                            <Input  disabled/>
+                        </Form.Item>
+                    }
                     <Form.Item label="标签" name="tid" initialValue={tagsList[0].id}>
                         <Select>
                             {
@@ -147,8 +220,8 @@ const Details = () =>{
                     <Form.Item label="描述" name="des" rules={[{ required: true, message: '请输入文章描述' }]}>
                         <Input  placeholder="文章描述"/>
                     </Form.Item>
-                    <Form.Item label="图片" name="upload"  valuePropName="fileList" initialValue={fileList} getValueFromEvent={normFile} rules={[{ required: true, message: 'Please input your image!' }]}>
-                        <Upload name="file" defaultFileList={fileList} onRemove={()=>setFileList([])} action={Apis.uploadOss} listType="picture">
+                    <Form.Item label="图片">
+                        <Upload name="file" onChange={handleChange} fileList={fileList} onRemove={()=>setFileList([])} action={Apis.uploadOss} listType="picture">
                             <Button icon={<UploadOutlined />}>Click to upload</Button>
                         </Upload>
                     </Form.Item>

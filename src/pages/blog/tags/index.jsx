@@ -2,7 +2,7 @@
  * @Descripttion: 标签管理
  * @Author: Hades
  * @Date: 2021-01-05 10:06:37
- * @LastEditTime: 2021-01-14 22:01:19
+ * @LastEditTime: 2021-01-17 15:54:27
  */
 
 import React,{ useState, useEffect} from 'react';
@@ -99,7 +99,6 @@ const Tags = () =>{
             dataIndex: 'ticon',
             key: 'ticon',
         },
-       
         {
             title: '操作',
             key: 'operation',

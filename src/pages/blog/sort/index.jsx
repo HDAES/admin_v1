@@ -2,7 +2,7 @@
  * @Descripttion: 博客分类
  * @Author: Hades
  * @Date: 2021-01-05 10:06:37
- * @LastEditTime: 2021-01-05 16:58:29
+ * @LastEditTime: 2021-01-17 23:06:55
  */
 
 import React,{ useState, useEffect} from 'react';
@@ -10,6 +10,7 @@ import { Card, Button, Modal, Form, Input, InputNumber, Upload, message, Table }
 import { PlusOutlined, UploadOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { postAddSort, getSort, getDelSort,postUpdateSort } from '../../../axios'
 import Apis from '../../../axios/api'
+import { formateType } from '../../../utils'
 const Sort = () =>{
     const [visible,setVisible] = useState(false)
     const [isAdd,setIsAdd] = useState(false)
@@ -33,28 +34,29 @@ const Sort = () =>{
 
     const okHandler = () =>{
         form.validateFields().then( value =>{
-            let image =''
-            if(isAdd){
-                if(value.upload.length>0){
-                    image = value.upload[0].response.data.url
-                }
-                postAddSort({...value,image}).then(res =>{
-                    if(res.code === 200){
-                        message.success('添加成功')
-                        setVisible(false)
-                        setRefresh(!refresh)
-                    }
-                })
+            if(fileList.length === 0){
+                message.error('请先上传图片')
             }else{
-                if(value.upload.length>0){
-                    image = value.upload[0].url || value.upload[0].response.data.url
-                    postUpdateSort({...value,image}).then(res =>{
+                let image = fileList[0].url 
+                if(isAdd){
+                    postAddSort({...value,image}).then(res =>{
                         if(res.code === 200){
-                            message.success('修改成功')
+                            message.success('添加成功')
                             setVisible(false)
                             setRefresh(!refresh)
                         }
                     })
+                }else{
+                    if(value.upload.length>0){
+                        image = value.upload[0].url || value.upload[0].response.data.url
+                        postUpdateSort({...value,image}).then(res =>{
+                            if(res.code === 200){
+                                message.success('修改成功')
+                                setVisible(false)
+                                setRefresh(!refresh)
+                            }
+                        })
+                    }
                 }
             }
         })
@@ -62,6 +64,7 @@ const Sort = () =>{
     //修改
     const modifyHandler = item =>{
         setVisible(true)
+        setIsAdd(false)
         form.setFieldsValue(item)
         setFileList([
             {
@@ -89,32 +92,22 @@ const Sort = () =>{
             onCancel() {
               console.log('Cancel');
             },
-        })
-        
+        }) 
     }
-    //类型格式化
-    const formateType = type =>{
-        switch(type){
-            case 0 :
-                return "网站"
-            case 1 : 
-                return "微信小程序"
-            case 2 :
-                return "网站/微信小程序"
-            default :
-                return "未知"
-        }
-    }
+    
     const layout = {
         labelCol: { span: 4},
         wrapperCol: { span: 20 },
     }
-    const normFile = (e) => {
-        console.log('Upload event:', e);
-        if (Array.isArray(e)) {
-          return e;
+    const handleChange = (e) => {
+        //console.log('Upload event:', e);
+        if(e.file.status==="done"&&e.file.response.code===200){
+            //上传成功
+            setFileList([{
+                status: 'done',
+                url: e.file.response.data.url,
+            }])
         }
-        return e && e.fileList;
     }
     const columns =[{
             title: '标题',
@@ -188,11 +181,11 @@ const Sort = () =>{
                         <Form.Item label="类型" name="type" initialValue={0} rules={[{ required: true, message: 'Please input your type!' }]}>
                             <InputNumber min={0} max={2} step={1}/>
                         </Form.Item>
-                        <Form.Item label="图片"   name="upload"  valuePropName="fileList" initialValue={fileList} getValueFromEvent={normFile} rules={[{ required: true, message: 'Please input your image!' }]}>
-                            <Upload name="file" defaultFileList={fileList} onRemove={()=>setFileList([])} action={Apis.uploadOss} listType="picture">
-                                <Button icon={<UploadOutlined />}>Click to upload</Button>
-                            </Upload>
-                        </Form.Item>
+                        <Form.Item label="图片">
+                        <Upload name="file" onChange={handleChange} fileList={fileList} onRemove={()=>setFileList([])} action={Apis.uploadOss} listType="picture">
+                            <Button icon={<UploadOutlined />}>Click to upload</Button>
+                        </Upload>
+                    </Form.Item>
                     </Form>
                 </Modal>
         </div>

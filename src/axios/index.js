@@ -2,7 +2,7 @@
  * @Descripttion: 请求方法
  * @Author: Hades
  * @Date: 2020-12-11 16:48:13
- * @LastEditTime: 2021-01-14 22:32:18
+ * @LastEditTime: 2021-01-17 16:44:33
  */
 
 import http from './http'
@@ -181,6 +181,23 @@ export function getDetails(){
 export function postDetails(data){
     return http({
         method:'post',
+        url:api.blogDetails,
+        data,
+        all:true
+    })
+}
+
+export function delDetails(id){
+    return http({
+        method:'delete',
+        url:api.blogDetails+`/${id}`,
+        all:true
+    })
+}
+
+export function putDetails(data){
+    return http({
+        method:'put',
         url:api.blogDetails,
         data,
         all:true
