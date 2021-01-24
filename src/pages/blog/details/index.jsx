@@ -2,23 +2,26 @@
  * @Descripttion: 博客详情
  * @Author: Hades
  * @Date: 2021-01-06 12:04:57
- * @LastEditTime: 2021-01-17 23:03:35
+ * @LastEditTime: 2021-01-25 00:17:31
  */
 
 import React, { useState, useEffect} from 'react';
 import { Card, Button, Modal, Form, Select, Input, Upload, Switch,InputNumber,message,Table } from 'antd'
 import { PlusOutlined, UploadOutlined,ExclamationCircleOutlined } from '@ant-design/icons';
-import { getTags, postDetails,getDetails,delDetails,putDetails } from '../../../axios'
+import Editor from 'for-editor'
+import { getTags, postDetails,getDetails,delDetails,putDetails,PostContent,getContent } from '../../../axios'
 import Apis from '../../../axios/api'
 import { formateType } from '../../../utils'
 const Details = () =>{
 
     const [refresh,setRefresh] = useState(false)
     const [visible,setVisible] = useState(false)
+    const [visibleContent,setVisibleContent] = useState(false)
     const [isAdd,setIsAdd] = useState(false)
     const [tagsList,setTagsList] = useState([{id:0}])
     const [blogList,setBlogList] = useState([])
     const [fileList,setFileList] = useState([])
+    const [article,setArticle] = useState('')
     const [editForm] = Form.useForm()
 
     useEffect(()=>{
@@ -55,19 +58,15 @@ const Details = () =>{
                 let image =fileList[0].url
                 if(isAdd){
                     postDetails({...value,sid,image,source}).then( res =>{
-                        if(res.code === 200){
-                            message.success('添加成功')
-                            setVisible(false)
-                            setRefresh(!refresh)
-                        }
+                        message.success('添加成功')
+                        setVisible(false)
+                        setRefresh(!refresh)
                     })
                 }else{
                     putDetails({...value,sid,image,source}).then(res=>{
-                        if(res.code === 200){
-                            message.success('修改成功')
-                            setVisible(false)
-                            setRefresh(!refresh)
-                        }
+                        message.success('修改成功')
+                        setVisible(false)
+                        setRefresh(!refresh)
                     })
                 }
             }
@@ -117,6 +116,32 @@ const Details = () =>{
                 url: e.file.response.data.url,
             }])
         }
+    }
+    //打开文章
+    const openContent = item =>{
+        getContent(item.id).then(res =>{
+            console.log(res)
+            //
+            if(res.code ===200){
+                setVisibleContent(true)
+            }
+        }).catch((e)=>{
+            Modal.confirm({
+                title:"你还没有创建博客",
+                cancelText:"取消",
+                okText:"创建",
+                onOk(){
+                    PostContent({id:item.id}).then(res =>{
+                        setVisibleContent(true)
+                    })
+                }
+            })
+        })
+        
+    }
+    //保存文章
+    const saveContent = ()=>{
+        
     }
     const columns =[{
         title: '分类',
@@ -168,6 +193,9 @@ const Details = () =>{
         align:'center',
         width: 250,
         render: (e) => <div style={{display:'flex'}}>
+            <Button type="link" onClick={()=>openContent(e)}>
+                文章
+            </Button>
             <Button type="link" onClick={()=>editHandler(e)}>
                 修改
             </Button>
@@ -236,6 +264,20 @@ const Details = () =>{
                     </Form.Item>
                 </Form>
             </Modal>
+            <Modal
+                width={1000}
+                title="博客编辑"
+                visible={visibleContent}
+                onCancel={()=>setVisibleContent(false)}
+                onOk={()=>saveContent}
+                >
+                    <Editor 
+                    preview={true}
+                    subfield={true}
+                    value={article} 
+                    onChange={(value)=>setArticle(value)}
+                    />
+                </Modal>
         </div>
     )
 }

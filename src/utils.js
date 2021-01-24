@@ -2,7 +2,7 @@
  * @Descripttion: 公共方法
  * @Author: Hades
  * @Date: 2020-12-11 17:21:00
- * @LastEditTime: 2021-01-17 15:51:11
+ * @LastEditTime: 2021-01-24 19:39:41
  */
 import CryptoJS from 'crypto-js'
 const SHA1 = "HADESXL"
@@ -47,11 +47,20 @@ export function HmacSHA1(password){
 export function formateType(type){
     switch(type){
         case 0 :
-            return "pc和小程序"
+            return <div>
+                <i className="iconfont icon-weixin1x" style={{width:50,color:'green',marginRight:10}}></i>
+                <i className="iconfont icon-pc" style={{width:50,color:'green'}}></i>
+            </div>
         case 1 : 
-            return "微信小程序"
+            return <div>
+                <i className="iconfont icon-weixin1x" style={{width:50,color:'green',marginRight:10}}></i>
+                <i className="iconfont icon-pc" style={{width:50}}></i>
+            </div>
         case 2 :
-            return "pc"
+            return <div>
+                <i className="iconfont icon-weixin1x" style={{width:50,marginRight:10}}></i>
+                <i className="iconfont icon-pc" style={{width:50,color:'green'}}></i>
+            </div>
         default :
             return "未知"
     }
