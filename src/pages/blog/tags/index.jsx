@@ -2,7 +2,7 @@
  * @Descripttion: 标签管理
  * @Author: Hades
  * @Date: 2021-01-05 10:06:37
- * @LastEditTime: 2021-01-17 15:54:27
+ * @LastEditTime: 2021-01-25 12:18:49
  */
 
 import React,{ useState, useEffect} from 'react';
@@ -139,7 +139,7 @@ const Tags = () =>{
                                 <Input  disabled/>
                             </Form.Item>
                         }
-                       <Form.Item label="分类" name="sid" initialValue={sortList[0].id}>
+                       <Form.Item label="分类" name="sid" >
                            <Select>
                                {
                                     sortList.map(item =>{

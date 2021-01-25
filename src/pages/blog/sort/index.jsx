@@ -2,7 +2,7 @@
  * @Descripttion: 博客分类
  * @Author: Hades
  * @Date: 2021-01-05 10:06:37
- * @LastEditTime: 2021-01-17 23:06:55
+ * @LastEditTime: 2021-01-25 13:16:47
  */
 
 import React,{ useState, useEffect} from 'react';
@@ -40,21 +40,17 @@ const Sort = () =>{
                 let image = fileList[0].url 
                 if(isAdd){
                     postAddSort({...value,image}).then(res =>{
-                        if(res.code === 200){
-                            message.success('添加成功')
-                            setVisible(false)
-                            setRefresh(!refresh)
-                        }
+                        message.success('添加成功')
+                        setVisible(false)
+                        setRefresh(!refresh)
                     })
                 }else{
                     if(value.upload.length>0){
                         image = value.upload[0].url || value.upload[0].response.data.url
                         postUpdateSort({...value,image}).then(res =>{
-                            if(res.code === 200){
-                                message.success('修改成功')
-                                setVisible(false)
-                                setRefresh(!refresh)
-                            }
+                            message.success('修改成功')
+                            setVisible(false)
+                            setRefresh(!refresh)
                         })
                     }
                 }
@@ -118,6 +114,8 @@ const Sort = () =>{
             title: '图标',
             dataIndex: 'icon',
             key: 'icon',
+            render:icon=><i className={`iconfont  ${icon}`}></i>
+            
         },
         {
             title: '图片',

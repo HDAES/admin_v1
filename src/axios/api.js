@@ -2,7 +2,7 @@
  * @Descripttion: 请求路径
  * @Author: Hades
  * @Date: 2020-12-11 16:46:45
- * @LastEditTime: 2021-01-24 23:54:50
+ * @LastEditTime: 2021-01-25 13:54:26
  */
 
 let serverUrl = ''
@@ -42,6 +42,7 @@ const Apis = {
     uploadOss:serverUrl+'/upload/oss',//上传图片
     blogDetails: serverUrl+'/admin/blog/details',
     blogContent: serverUrl+'/admin/blog/content',//博客内容
+    saying: serverUrl + '/admin/blog/saying',//名言内容
 }
 
 export default Apis;

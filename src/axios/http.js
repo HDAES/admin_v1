@@ -2,7 +2,7 @@
  * @Descripttion: http请求的封装
  * @Author: Hades
  * @Date: 2020-12-11 16:45:51
- * @LastEditTime: 2020-12-13 18:38:17
+ * @LastEditTime: 2021-01-25 11:28:19
  */
 
 import axios from 'axios'
@@ -15,7 +15,7 @@ const Axios = (options) => {
             method: options.method,
             timeout: 12000,
             data: options.data,
-            headers:{ },
+            headers:options.headers||{ },
             params: (options.data && options.data.params) || '',
         }).then((response) => {
             if (response.status === 200) {

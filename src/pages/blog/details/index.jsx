@@ -2,16 +2,17 @@
  * @Descripttion: 博客详情
  * @Author: Hades
  * @Date: 2021-01-06 12:04:57
- * @LastEditTime: 2021-01-25 00:17:31
+ * @LastEditTime: 2021-01-25 12:19:20
  */
 
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect,useRef} from 'react';
 import { Card, Button, Modal, Form, Select, Input, Upload, Switch,InputNumber,message,Table } from 'antd'
 import { PlusOutlined, UploadOutlined,ExclamationCircleOutlined } from '@ant-design/icons';
 import Editor from 'for-editor'
-import { getTags, postDetails,getDetails,delDetails,putDetails,PostContent,getContent } from '../../../axios'
+import { getTags, postDetails,getDetails,delDetails,putDetails,PostContent,getContent,putContent,postImage } from '../../../axios'
 import Apis from '../../../axios/api'
 import { formateType } from '../../../utils'
+import './index.less'
 const Details = () =>{
 
     const [refresh,setRefresh] = useState(false)
@@ -22,8 +23,9 @@ const Details = () =>{
     const [blogList,setBlogList] = useState([])
     const [fileList,setFileList] = useState([])
     const [article,setArticle] = useState('')
+    const [openArticleId,setOpenArticleId] = useState('')
     const [editForm] = Form.useForm()
-
+    const editorRef = useRef();
     useEffect(()=>{
         getDetails().then(res => {
             setBlogList(res.data.list)
@@ -120,11 +122,9 @@ const Details = () =>{
     //打开文章
     const openContent = item =>{
         getContent(item.id).then(res =>{
-            console.log(res)
-            //
-            if(res.code ===200){
-                setVisibleContent(true)
-            }
+            setVisibleContent(true)
+            setArticle(res.data.content)
+            setOpenArticleId(item.id)
         }).catch((e)=>{
             Modal.confirm({
                 title:"你还没有创建博客",
@@ -141,6 +141,17 @@ const Details = () =>{
     }
     //保存文章
     const saveContent = ()=>{
+        putContent({id:openArticleId,content:article}).then(res =>{
+            message.success('保存成功')
+        })
+    }
+    //添加图片
+    const addImg = file =>{
+        var formData = new FormData();
+        formData.append('file',file,file.name)
+        postImage(formData).then(res =>{
+            editorRef.current.$img2Url(file.name, res.url) 
+        })
         
     }
     const columns =[{
@@ -209,7 +220,7 @@ const Details = () =>{
         wrapperCol: { span: 20 },
     }
     return (
-        <div>
+        <div className="details">
             <Card>
                 <Button onClick={addHandler}>添加<PlusOutlined /></Button>
             </Card>
@@ -233,7 +244,7 @@ const Details = () =>{
                             <Input  disabled/>
                         </Form.Item>
                     }
-                    <Form.Item label="标签" name="tid" initialValue={tagsList[0].id}>
+                    <Form.Item label="标签" name="tid" >
                         <Select>
                             {
                                 tagsList.map(item=>{
@@ -268,13 +279,18 @@ const Details = () =>{
                 width={1000}
                 title="博客编辑"
                 visible={visibleContent}
+                okText="保存"
+                cancelText="取消"
                 onCancel={()=>setVisibleContent(false)}
-                onOk={()=>saveContent}
+                onOk={saveContent}
                 >
                     <Editor 
+                    ref={editorRef}
                     preview={true}
                     subfield={true}
                     value={article} 
+                    onSave={saveContent}
+                    addImg={($file) => addImg($file)}
                     onChange={(value)=>setArticle(value)}
                     />
                 </Modal>

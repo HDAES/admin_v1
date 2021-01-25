@@ -2,7 +2,7 @@
  * @Descripttion: 请求方法
  * @Author: Hades
  * @Date: 2020-12-11 16:48:13
- * @LastEditTime: 2021-01-24 23:57:15
+ * @LastEditTime: 2021-01-25 14:39:58
  */
 
 import http from './http'
@@ -207,8 +207,7 @@ export function putDetails(data){
 export function getContent(id){
     return http({
         method:'get',
-        url:api.blogContent+`/${id}`,
-        all:true
+        url:api.blogContent+`/${id}`
     })
 }
 
@@ -219,5 +218,51 @@ export function PostContent(data){
         data,
         all:true
     })
+}
+
+export function putContent(data){
+    return http({
+        method:'put',
+        url:api.blogContent,
+        data,
+    })
+}
+
+export function postImage(data){
+    return http({
+        method:'POST',
+        url:api.uploadOss,
+        headers:{"Content-Type":"multipart/form-data"},
+        data
+    })
+}
+
+export function postSaying(data){
+    return http({
+        method:'POST',
+        url:api.saying,
+        data
+    }) 
+}
+export function getSaying(){
+    return http({
+        method:'get',
+        url:api.saying
+    }) 
+}
+
+export function delSaying(id){
+    return http({
+        method:'delete',
+        url:api.saying+`/${id}`
+    }) 
+}
+
+export function putSaying(data){
+    return http({
+        method:'put',
+        url:api.saying,
+        data
+    }) 
 }
 
