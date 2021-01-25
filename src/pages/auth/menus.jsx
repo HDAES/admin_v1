@@ -2,7 +2,7 @@
  * @Descripttion: 菜单管理
  * @Author: Hades
  * @Date: 2020-12-13 09:51:34
- * @LastEditTime: 2020-12-18 13:55:54
+ * @LastEditTime: 2021-01-25 17:40:47
  */
 
 import React, { useState } from 'react';
@@ -60,7 +60,7 @@ const Menus = ({menus,menusTree, dispatch}) =>{
             postUpdateMenu({...formValue}).then( res =>{
                 if(res.code === 200){
                     message.success('修改成功')
-                    dispatch(setUserMenus(res.data.list)) 
+                    dispatch(setUserMenus(res.data)) 
                     setEditModalVisible(false)
                 }
             })
@@ -81,7 +81,7 @@ const Menus = ({menus,menusTree, dispatch}) =>{
                     getRemoveMenu(delId).then( res =>{
                         if(res.code === 200){
                             message.success('删除成功')
-                            dispatch(setUserMenus(res.data.list)) 
+                            dispatch(setUserMenus(res.data)) 
                         }
                     })
                 },

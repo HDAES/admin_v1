@@ -2,7 +2,7 @@
  * @Descripttion: 博客分类
  * @Author: Hades
  * @Date: 2021-01-05 10:06:37
- * @LastEditTime: 2021-01-25 13:16:47
+ * @LastEditTime: 2021-01-25 17:35:24
  */
 
 import React,{ useState, useEffect} from 'react';
@@ -21,7 +21,7 @@ const Sort = () =>{
 
     useEffect(()=>{
         getSort().then(res =>{
-            setSortList(res.list)
+            setSortList(res)
         })
     },[refresh])
     //添加按钮

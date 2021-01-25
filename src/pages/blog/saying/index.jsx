@@ -18,7 +18,7 @@ const Saying = () =>{
     
     useEffect(()=>{
         getSaying().then(res=>{
-            setSayingList(res.list)
+            setSayingList(res)
         })
     },[refresh])
     //添加按钮事件

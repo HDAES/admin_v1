@@ -2,7 +2,7 @@
  * @Descripttion: 用户组
  * @Author: Hades
  * @Date: 2020-12-13 21:43:11
- * @LastEditTime: 2020-12-20 23:52:14
+ * @LastEditTime: 2021-01-25 17:34:37
  */
 
 import React,{ useEffect, useState} from 'react';
@@ -26,7 +26,7 @@ const Group = ({allMenus}) =>{
     //获取用户组
     const userGroup = () =>{
         getUserGroup().then( res =>{
-            setList(res.list)
+            setList(res)
         })
     }
     //显示用户组菜单
@@ -38,30 +38,24 @@ const Group = ({allMenus}) =>{
     //添加用户组
     const saveGroup = () =>{
         edit?groupForm.validateFields().then( res =>{
-            postAddGroup({name:res.gname,menus:checkedKeys}).then( res =>{
-                if(res.code === 200){
-                    message.success('添加成功!')
-                    setRefresh(!refresh)
-                    setAuVisible(false)
-                }
+            postAddGroup({name:res.gname,menus:checkedKeys}).then( _ =>{
+                message.success('添加成功!')
+                setRefresh(!refresh)
+                setAuVisible(false)
             })
         }):groupForm.validateFields().then( res =>{
-            postUpdateGroup({...res,menus:checkedKeys}).then( res =>{
-                if(res.code === 200){
-                    message.success('添加成功!')
-                    setRefresh(!refresh)
-                    setAuVisible(false)
-                }
+            postUpdateGroup({...res,menus:checkedKeys}).then( _ =>{
+                message.success('添加成功!')
+                setRefresh(!refresh)
+                setAuVisible(false)
             })
         })
     }
     //删除用户组
     const delGroup = ({id}) =>{
         getDelGroup(id).then( res =>{
-            if(res.code === 200){
-                message.success('删除成功')
-                setRefresh(!refresh)
-            }
+            message.success('删除成功')
+            setRefresh(!refresh)
         })
     }
     //修改用户组

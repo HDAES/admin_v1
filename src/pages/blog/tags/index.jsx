@@ -2,7 +2,7 @@
  * @Descripttion: 标签管理
  * @Author: Hades
  * @Date: 2021-01-05 10:06:37
- * @LastEditTime: 2021-01-25 12:18:49
+ * @LastEditTime: 2021-01-25 17:35:33
  */
 
 import React,{ useState, useEffect} from 'react';
@@ -19,10 +19,10 @@ const Tags = () =>{
 
     useEffect(()=>{
         getSort().then(res =>{
-            setSortList(res.list)
+            setSortList(res)
         })
         getTags().then(res =>{
-            setTagsList(res.list)
+            setTagsList(res)
         })
     },[refresh])
     //添加按钮

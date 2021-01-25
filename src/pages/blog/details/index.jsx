@@ -2,7 +2,7 @@
  * @Descripttion: 博客详情
  * @Author: Hades
  * @Date: 2021-01-06 12:04:57
- * @LastEditTime: 2021-01-25 12:19:20
+ * @LastEditTime: 2021-01-25 17:36:16
  */
 
 import React, { useState, useEffect,useRef} from 'react';
@@ -28,13 +28,13 @@ const Details = () =>{
     const editorRef = useRef();
     useEffect(()=>{
         getDetails().then(res => {
-            setBlogList(res.data.list)
+            setBlogList(res.data)
         })
     },[refresh])
 
     useEffect(()=>{
         getTags().then(res =>{
-            setTagsList(res.list)
+            setTagsList(res)
         })
     },[])
     //添加按钮

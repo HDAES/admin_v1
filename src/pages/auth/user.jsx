@@ -2,7 +2,7 @@
  * @Descripttion: 用户组
  * @Author: Hades
  * @Date: 2020-12-16 11:20:36
- * @LastEditTime: 2020-12-18 10:16:58
+ * @LastEditTime: 2021-01-25 17:33:49
  */
 
 
@@ -27,16 +27,14 @@ const User = ({groups}) =>{
     
     const getList = () =>{
         getUserList().then( res =>{
-            setUserList(res.list)
+            setUserList(res)
         })
     }
     //删除用户
     const delUser = ({id}) =>{
-        getDelectUser(id).then( res =>{
-            if(res.code === 200){
-                message.success('删除成功')
-                setRefresh(!refresh)
-            }
+        getDelectUser(id).then( _ =>{
+            message.success('删除成功')
+            setRefresh(!refresh)
         })
     }
     //弹窗点击事件
