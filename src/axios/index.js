@@ -2,7 +2,7 @@
  * @Descripttion: 请求方法
  * @Author: Hades
  * @Date: 2020-12-11 16:48:13
- * @LastEditTime: 2021-01-25 14:39:58
+ * @LastEditTime: 2021-02-02 15:33:03
  */
 
 import http from './http'
@@ -266,3 +266,9 @@ export function putSaying(data){
     }) 
 }
 
+export function getApiList(){
+    return http({
+        method:'get',
+        url:api.testApi
+    })
+}

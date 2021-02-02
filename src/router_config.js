@@ -2,7 +2,7 @@
  * @Descripttion: 完整路由文件
  * @Author: Hades
  * @Date: 2020-12-11 15:25:56
- * @LastEditTime: 2021-01-25 13:34:08
+ * @LastEditTime: 2021-02-02 14:46:32
  */
 import Layout from './layout'
 import Index from './pages/index'
@@ -26,7 +26,7 @@ import Sort from './pages/blog/sort'
 import Tags from './pages/blog/tags'
 import Details from './pages/blog/details'
 import Saying from './pages/blog/saying'
-
+import TestApi from './pages/test/api'
 const Routes = [
     {
         path:'/', name:'Layout', component:Layout, auth:true, children:[
@@ -51,7 +51,7 @@ const Routes = [
             {path:'/blog/tags', name:'Tags', component:Tags, auth:true}, 
             {path:'/blog/details', name:'Details', component:Details, auth:true},
             {path:'/blog/saying', name:'Saying', component:Saying, auth:true},
-            
+            {path:'/test/api', name:'TestApi', component:TestApi, auth:true},
         ]
     }
 ]

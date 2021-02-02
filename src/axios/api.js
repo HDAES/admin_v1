@@ -2,7 +2,7 @@
  * @Descripttion: 请求路径
  * @Author: Hades
  * @Date: 2020-12-11 16:46:45
- * @LastEditTime: 2021-01-25 13:54:26
+ * @LastEditTime: 2021-02-02 15:29:23
  */
 
 let serverUrl = ''
@@ -13,7 +13,7 @@ if(process.env.NODE_ENV === 'development'){
     //serverUrl = 'http://sb.xl686.com'
     serverUrl = 'http://127.0.0.1:8001' 
 }else{
-    serverUrl = 'http://sb.xl686.com'
+    serverUrl = 'http://api.xl686.com'
 }
 
 
@@ -43,6 +43,9 @@ const Apis = {
     blogDetails: serverUrl+'/admin/blog/details',
     blogContent: serverUrl+'/admin/blog/content',//博客内容
     saying: serverUrl + '/admin/blog/saying',//名言内容
+
+    testApi: serverUrl+'/admin/test/api',//获取所有接口
+    
 }
 
 export default Apis;
