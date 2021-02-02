@@ -2,7 +2,7 @@
  * @Descripttion: 博客分类
  * @Author: Hades
  * @Date: 2021-01-05 10:06:37
- * @LastEditTime: 2021-01-25 17:35:24
+ * @LastEditTime: 2021-01-26 21:24:29
  */
 
 import React,{ useState, useEffect} from 'react';
@@ -45,14 +45,11 @@ const Sort = () =>{
                         setRefresh(!refresh)
                     })
                 }else{
-                    if(value.upload.length>0){
-                        image = value.upload[0].url || value.upload[0].response.data.url
-                        postUpdateSort({...value,image}).then(res =>{
-                            message.success('修改成功')
-                            setVisible(false)
-                            setRefresh(!refresh)
-                        })
-                    }
+                    postUpdateSort({...value,image}).then(res =>{
+                        message.success('修改成功')
+                        setVisible(false)
+                        setRefresh(!refresh)
+                    })
                 }
             }
         })
@@ -96,8 +93,8 @@ const Sort = () =>{
         wrapperCol: { span: 20 },
     }
     const handleChange = (e) => {
-        //console.log('Upload event:', e);
-        if(e.file.status==="done"&&e.file.response.code===200){
+        console.log('Upload event:', e);
+         if(e.file.status==="done"&&e.file.response.code===200){
             //上传成功
             setFileList([{
                 status: 'done',

@@ -2,7 +2,7 @@
  * @Descripttion: 博客详情
  * @Author: Hades
  * @Date: 2021-01-06 12:04:57
- * @LastEditTime: 2021-01-25 17:36:16
+ * @LastEditTime: 2021-01-26 22:13:15
  */
 
 import React, { useState, useEffect,useRef} from 'react';
@@ -123,7 +123,7 @@ const Details = () =>{
     const openContent = item =>{
         getContent(item.id).then(res =>{
             setVisibleContent(true)
-            setArticle(res.data.content)
+            setArticle(res.content)
             setOpenArticleId(item.id)
         }).catch((e)=>{
             Modal.confirm({

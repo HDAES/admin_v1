@@ -2,7 +2,7 @@
  * @Descripttion: 菜单管理
  * @Author: Hades
  * @Date: 2020-12-13 09:51:34
- * @LastEditTime: 2021-01-25 17:40:47
+ * @LastEditTime: 2021-01-26 21:34:12
  */
 
 import React, { useState } from 'react';
@@ -35,6 +35,7 @@ const Menus = ({menus,menusTree, dispatch}) =>{
                     url = item.url+'/'+formValue.url
                 }
             })
+            
             postAddMenu({...formValue,mid,url}).then( res =>{           
                 message.success('添加成功')
                 setAddModalVisible(false)
