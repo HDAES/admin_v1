@@ -2,7 +2,7 @@
  * @Descripttion: 请求路径
  * @Author: Hades
  * @Date: 2020-12-11 16:46:45
- * @LastEditTime: 2021-02-02 15:29:23
+ * @LastEditTime: 2021-02-06 16:08:35
  */
 
 let serverUrl = ''
@@ -10,8 +10,8 @@ let serverUrl = ''
 //let serverUrl1 = 'http://cqapi.iutme.com'
 //判断运行环境
 if(process.env.NODE_ENV === 'development'){
-    //serverUrl = 'http://sb.xl686.com'
-    serverUrl = 'http://127.0.0.1:8001' 
+    serverUrl = 'http://api.xl686.com'
+    //serverUrl = 'http://127.0.0.1:8001' 
 }else{
     serverUrl = 'http://api.xl686.com'
 }

@@ -2,7 +2,7 @@
  * @Descripttion: 头部
  * @Author: Hades
  * @Date: 2020-12-10 22:49:50
- * @LastEditTime: 2020-12-11 15:23:36
+ * @LastEditTime: 2021-02-06 16:25:57
  */
 import React, { useState } from 'react';
 import { Layout, Badge, Dropdown, Menu, Avatar} from 'antd'
@@ -39,8 +39,27 @@ const Header = ({collapsed,dispatch}) =>{
         }
     }
 
+    function handleClick(e){
+   
+        switch(e.key){
+            case '1' :
+                window.open('http://www.xl686.com/about')
+                break;
+            case '2' :
+                window.open('https://github.com/HDAES/admin')
+                break;
+            case '3' :
+                window.location.href='/#/index'
+                break;
+            case '4' :
+                window.location.href='/#/login'
+                break;
+            default : 
+                break;
+        }
+      }
     const menu = (
-        <Menu>
+        <Menu onClick={handleClick}>
           <Menu.Item key="1">关于admin</Menu.Item>
           <Menu.Item key="2">项目仓库</Menu.Item>
           <Menu.Item key="3">返回首页</Menu.Item>
